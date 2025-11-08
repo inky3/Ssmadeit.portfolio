@@ -1,0 +1,61 @@
+---
+interface Item {
+  title: string;
+  thumb: string;    // preview image
+  src?: string;     // local mp4 or external embed URL
+  embed?: "youtube" | "vimeo" | null;
+}
+
+const { heading = "Highlights", items = [] as Item[], id = "highlights" } = Astro.props;
+
+// Simple modal using <dialog>
+function modal(i: number) {
+  return `
+    (function(){
+      const d = document.getElementById('${id}-dlg-' + ${i});
+      d?.showModal();
+    })()
+  `;
+}
+---
+<section id={id} class="section">
+  <div class="container">
+    <h2 class="h2">{heading}</h2>
+    <div class="grid grid-2">
+      {items.map((it, i) => (
+        <figure class="card" style="padding:12px">
+          <div class="media">
+            <img src={it.thumb} alt={it.title} loading="lazy" />
+            <button class="play" onclick={modal(i)}>▶ Play</button>
+          </div>
+          <figcaption style="margin-top:10px">{it.title}</figcaption>
+
+          <dialog id={`${id}-dlg-${i}`} style="border:0;border-radius:12px;padding:0;max-width:min(960px, 92vw)">
+            <div style="position:relative;background:#000">
+              <button onclick="this.closest('dialog').close()" style="position:absolute;top:8px;right:8px;border:0;background:#fff;border-radius:999px;padding:6px 10px;cursor:pointer">✕</button>
+
+              {it.embed === "youtube" && it.src && (
+                <iframe
+                  src={`https://www.youtube.com/embed/${it.src}?rel=0&autoplay=1`}
+                  allow="autoplay; encrypted-media" allowfullscreen
+                  style="width:min(960px, 92vw);height:calc(min(960px, 92vw)*9/16);border:0;border-radius:12px"></iframe>
+              )}
+
+              {it.embed === "vimeo" && it.src && (
+                <iframe
+                  src={`https://player.vimeo.com/video/${it.src}?autoplay=1`}
+                  allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+                  style="width:min(960px, 92vw);height:calc(min(960px, 92vw)*9/16);border:0;border-radius:12px"></iframe>
+              )}
+
+              {(!it.embed && it.src) && (
+                <video src={it.src} controls autoplay playsinline
+                  style="width:min(960px, 92vw);height:calc(min(960px, 92vw)*9/16);border-radius:12px;display:block"></video>
+              )}
+            </div>
+          </dialog>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

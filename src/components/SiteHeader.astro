@@ -1,0 +1,47 @@
+---
+const nav = [
+  { label: "About", href: "#about" },
+  { label: "Highlights", href: "#highlights" },
+  { label: "Graphics", href: "#graphics" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Contact", href: "#contact" },
+];
+---
+
+<style>
+  header.sticky{
+    position:sticky; top:0; z-index:20;
+    border-bottom:1px solid var(--line);
+    transition:background .25s ease, box-shadow .25s ease;
+  }
+  header.sticky:not(.scrolled){
+    background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,0));
+    backdrop-filter:saturate(140%) blur(6px);
+  }
+  header.sticky.scrolled{
+    background:rgba(15,17,19,.86);
+    backdrop-filter:saturate(140%) blur(10px);
+    box-shadow:0 6px 24px rgba(0,0,0,.25);
+  }
+  header a { color: var(--ink); }
+</style>
+
+<header class="sticky" id="hdr">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:64px;">
+    <a href="#" style="font-weight:800;letter-spacing:.2px;color:#fff">Thanaphonchai | 3D & Motion Graphic</a>
+    <nav style="display:flex;gap:18px;flex-wrap:wrap">
+      {nav.map(i => <a href={i.href} style="color:#dfe7ee">{i.label}</a>)}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => {
+    if (!hdr) return;
+    if (window.scrollY > 12) hdr.classList.add('scrolled');
+    else hdr.classList.remove('scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

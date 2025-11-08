@@ -1,0 +1,6 @@
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  site: "https://inky3.github.io",
+  base: "/Ssmadeit.portfolio",   // ← EXACT repo name, case-sensitive
+});

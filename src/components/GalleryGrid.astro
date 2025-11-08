@@ -1,0 +1,18 @@
+---
+interface ImageItem { src: string; alt?: string; }
+const { id = "gallery", heading = "Gallery", items = [] as ImageItem[] } = Astro.props;
+---
+<section id={id} class="section">
+  <div class="container">
+    <h2 class="h2">{heading}</h2>
+    <div class="grid" style="grid-template-columns:repeat(12,1fr); gap:16px">
+      {items.map((im, i) => (
+        <a class="media" href={im.src} target="_blank" rel="noopener"
+           style={`grid-column: span ${ (i % 7 === 0) ? 6 : 4 };`}
+        >
+          <img src={im.src} alt={im.alt || "Artwork"} loading="lazy" />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

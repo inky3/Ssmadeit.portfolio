@@ -1,0 +1,35 @@
+---
+const bullets = [
+  "Specialized in 3D modeling & motion graphics",
+  "Tools: Blender, After Effects, Premiere Pro",
+  "Focus: product shots, title sequences, kinetic type"
+];
+
+const facts = [
+  { k: "Experience", v: "2+ yrs" },
+  { k: "Based", v: "Bangkok, TH" },
+  { k: "Availability", v: "Freelance / Internship" }
+];
+---
+
+<section id="about" class="section">
+  <div class="container card" style="padding:28px">
+    <div class="grid grid-2">
+      <div>
+        <h2 class="h2">About / Resume Snapshot</h2>
+        <ul style="margin:0;padding-left:18px;line-height:1.7">
+          {bullets.map((b) => <li>{b}</li>)}
+        </ul>
+      </div>
+      <div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+          {facts.map((f) => (
+            <span class="badge"><strong>{f.k}:</strong> {f.v}</span>
+          ))}
+        </div>
+        <hr class="hr" />
+        <p class="lead">Short bio goes here. Replace with Thai/English copy later.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+const links = [
+  { label: "Email", href: "mailto:hello@example.com" },
+  { label: "Instagram", href: "https://instagram.com/" },
+  { label: "Behance", href: "https://behance.net/" }
+];
+---
+
+<footer id="contact" class="section" style="padding-bottom:96px">
+  <div class="container card" style="padding:24px">
+    <h2 class="h2">Contact</h2>
+    <p class="lead">Available for internship and freelance.</p>
+    <div class="links">
+      {links.map(l => <a class="btn" href={l.href} target="_blank" rel="noopener">{l.label}</a>)}
+    </div>
+    <hr class="hr" />
+    <div class="lead" style="display:flex;gap:10px;flex-wrap:wrap">
+      <span class="badge">© {new Date().getFullYear()} Thanaphonchai</span>
+      <span class="badge">Ssmadeit.myportfolio</span>
+    </div>
+  </div>
+</footer>
