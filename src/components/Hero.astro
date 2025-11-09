@@ -2,20 +2,16 @@
 interface Props {
   title?: string;
   subtitle?: string;
-  personImage?: string; // optional override
   height?: string;
 }
 
 const {
   title = "Thanaphonchai",
   subtitle = "3D • Motion • Graphic • Animation",
-  personImage,                // no default here
   height = "92vh",
 } = Astro.props as Props;
 
-// ✅ Works locally AND on GitHub Pages with base path
-const base = import.meta.env.BASE_URL || "/";
-const personSrc = personImage || `${base}profile.png`;
+const personSrc = `${import.meta.env.BASE_URL}/assets/profile.png`;
 ---
 
 <section style={`position:relative;min-height:${height};background:#06181f;display:flex;align-items:center;`}>
@@ -29,23 +25,10 @@ const personSrc = personImage || `${base}profile.png`;
     </div>
   </div>
 
-  <!-- Person image -->
   <img src={personSrc} alt="Profile"
-       style="
-         position:absolute;
-         right:6vw;
-         bottom:0;
-         height:100%;
-         max-height:100%;
-         object-fit:contain;
-         object-position:right bottom;
-         pointer-events:none;
-       " />
+       style="position:absolute;right:6vw;bottom:0;height:100%;object-fit:contain;object-position:right bottom;pointer-events:none;" />
 
-  <!-- Soft spotlight -->
-  <div style="
-    position:absolute; right:0; bottom:0; width:45%; height:100%;
-    background: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.12), transparent 60%);
-    pointer-events:none;
-  "></div>
+  <div style="position:absolute; right:0; bottom:0; width:45%; height:100%;
+              background: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.12), transparent 60%);
+              pointer-events:none;"></div>
 </section>
